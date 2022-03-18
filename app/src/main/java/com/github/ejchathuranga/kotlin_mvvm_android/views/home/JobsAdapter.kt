@@ -1,20 +1,17 @@
 package com.github.ejchathuranga.kotlin_mvvm_android.views.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.github.ejchathuranga.kotlin_mvvm_android.R
+import com.github.ejchathuranga.kotlin_mvvm_android.databinding.JobsViewHoldeBinding
 import com.github.ejchathuranga.kotlin_mvvm_android.models.TemperJob
+import com.squareup.picasso.Picasso
 
-class JobsAdapter: RecyclerView.Adapter<JobsAdapter.JobViewHolder>() {
+class JobsAdapter : RecyclerView.Adapter<JobsAdapter.JobViewHolder>() {
 
     private var dataList: ArrayList<TemperJob> = ArrayList<TemperJob>()
 
-    fun setDataList(dataList: ArrayList<TemperJob>){
+    fun setDataList(dataList: ArrayList<TemperJob>) {
         val oldSize = this.dataList.size
         this.dataList = dataList;
         notifyItemRangeChanged(oldSize, dataList.size)
@@ -22,8 +19,9 @@ class JobsAdapter: RecyclerView.Adapter<JobsAdapter.JobViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.data_list_item, parent, false)
-        return JobViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = JobsViewHoldeBinding.inflate(inflater, parent, false)
+        return JobViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
@@ -34,21 +32,19 @@ class JobsAdapter: RecyclerView.Adapter<JobsAdapter.JobViewHolder>() {
         return this.dataList.size
     }
 
-    class JobViewHolder constructor(private var view: View): RecyclerView.ViewHolder(view) {
-        val image = view.findViewById<ImageView>(R.id.imageView)
-        val name = view.findViewById<TextView>(R.id.tvName)
-        val desc = view.findViewById<TextView>(R.id.tvDesc)
-
+    class JobViewHolder constructor(var binding: JobsViewHoldeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TemperJob) {
-            name.text = data.job.project.client.name
-            desc.text = data.earnings_per_hour.currency
+            binding.tvName.text = data.job.project.client.name
+            binding.tvDesc.text = data.earnings_per_hour.currency
 
             val url = data.job.project.client.links.hero_image;
-            Glide.with(view)
-                .load(url)
-                .centerCrop()
-                .into(image)
 
+            Picasso.get()
+                .load(url)
+                .fit()
+                .centerCrop()
+                .into(binding.imageView)
         }
     }
 }
