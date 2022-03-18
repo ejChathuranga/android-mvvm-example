@@ -10,14 +10,14 @@ import com.github.ejchathuranga.kotlin_mvvm_android.databinding.TemperActivityMa
 import com.github.ejchathuranga.kotlin_mvvm_android.network.JobRepository
 import com.github.ejchathuranga.kotlin_mvvm_android.network.RetroInstance
 import com.github.ejchathuranga.kotlin_mvvm_android.network.RetroService
-import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.TemperHomeViewModel
-import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.TemperHomeViewModelFactory
+import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.JobSearchViewModel
+import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.JobsearchViewModelFactory
 
 class TemperHomeActivity : AppCompatActivity() {
     private val TAG = "TemperHomeActivity"
 
     lateinit var binding : TemperActivityMainBinding
-    lateinit var viewModel: TemperHomeViewModel
+    lateinit var viewModel: JobSearchViewModel
     lateinit var adapter: JobsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +35,12 @@ class TemperHomeActivity : AppCompatActivity() {
         adapter = JobsAdapter()
         binding.recyclerview.adapter = adapter
 
-        viewModel.makeApiCall()
+        viewModel.searchJobs()
     }
 
     private fun initViewModel() {
         val retroService: RetroService? = RetroInstance.getRetroInstance()
-        viewModel = ViewModelProvider(this, TemperHomeViewModelFactory(JobRepository(retroService))).get(TemperHomeViewModel::class.java);
+        viewModel = ViewModelProvider(this, JobsearchViewModelFactory(JobRepository(retroService))).get(JobSearchViewModel::class.java);
 
         viewModel.getSearchResultLiveData().observe(this, Observer {
             if (it!=null){

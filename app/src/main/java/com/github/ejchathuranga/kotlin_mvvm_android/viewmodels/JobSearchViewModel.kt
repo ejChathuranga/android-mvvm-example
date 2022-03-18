@@ -8,14 +8,14 @@ import com.github.ejchathuranga.kotlin_mvvm_android.models.SearchResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TemperHomeViewModel constructor(private val repository: JobRepository) : ViewModel() {
+class JobSearchViewModel constructor(private val repository: JobRepository) : ViewModel() {
     private var searchResultLiveData: MutableLiveData<SearchResult> = MutableLiveData()
 
     fun getSearchResultLiveData(): MutableLiveData<SearchResult> {
         return this.searchResultLiveData;
     }
 
-    fun makeApiCall() {
+    fun searchJobs() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = repository.searchJobs()
             searchResultLiveData.postValue(response)
