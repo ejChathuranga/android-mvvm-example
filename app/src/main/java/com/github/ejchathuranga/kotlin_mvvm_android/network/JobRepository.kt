@@ -1,4 +1,4 @@
-package com.github.ejchathuranga.kotlin_mvvm_android
+package com.github.ejchathuranga.kotlin_mvvm_android.network
 
 import com.github.ejchathuranga.kotlin_mvvm_android.network.RetroService
 
