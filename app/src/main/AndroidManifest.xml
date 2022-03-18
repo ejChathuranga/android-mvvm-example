@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlinmvvmandroid">
         <activity
-            android:name=".TempworkHomeActivity"
+            android:name=".TemperHomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
