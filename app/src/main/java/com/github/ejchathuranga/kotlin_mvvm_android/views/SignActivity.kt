@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.ejchathuranga.kotlin_mvvm_android.R
 
-class TemperHomeActivity : AppCompatActivity() {
+class SignActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.temper_activity_main)
+        setContentView(R.layout.activity_sign)
     }
 }
