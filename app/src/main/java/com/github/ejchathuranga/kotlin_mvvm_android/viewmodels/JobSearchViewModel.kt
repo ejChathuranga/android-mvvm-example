@@ -1,11 +1,14 @@
 package com.github.ejchathuranga.kotlin_mvvm_android.viewmodels
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.ejchathuranga.kotlin_mvvm_android.models.SearchResult
 import com.github.ejchathuranga.kotlin_mvvm_android.network.JobRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,8 +34,14 @@ class JobSearchViewModel @Inject constructor(private val repository: JobReposito
 
     fun searchJobs() {
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            repository.searchJobs(searchResultLiveData, errorMsg)
+            repository.searchJobs(getToday(), searchResultLiveData, errorMsg)
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getToday(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        return sdf.format(Date());
     }
 
     private fun onError(message: String) {

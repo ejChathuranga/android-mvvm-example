@@ -15,11 +15,12 @@ import javax.inject.Singleton
 class JobRepository @Inject constructor(private val retroService: RetroService) {
 
     suspend fun searchJobs(
+        date: String,
         searchResultLiveData: MutableLiveData<SearchResult>,
         errorMsg: MutableLiveData<String>
     ) {
         withContext(Dispatchers.Main) {
-            val call: Call<SearchResult> = retroService.getJobs()
+            val call: Call<SearchResult> = retroService.getJobs(date)
             call.enqueue(object : Callback<SearchResult> {
                 override fun onResponse(
                     call: Call<SearchResult>,
