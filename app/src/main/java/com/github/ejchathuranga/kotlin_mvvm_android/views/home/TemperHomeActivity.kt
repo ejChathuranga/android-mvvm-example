@@ -16,7 +16,9 @@ import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.JobSearchViewMode
 import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.JobsearchViewModelFactory
 import com.github.ejchathuranga.kotlin_mvvm_android.views.SigninActivity
 import com.github.ejchathuranga.kotlin_mvvm_android.views.SignupActiviity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TemperHomeActivity : AppCompatActivity() {
     private val TAG = "TemperHomeActivity"
 
@@ -39,7 +41,7 @@ class TemperHomeActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val retroService: RetroService = RetroInstance.getRetroInstance()!!
+        val retroService: RetroService = RetroInstance.getRetroInstance()
         viewModel =
             ViewModelProvider(this, JobsearchViewModelFactory(JobRepository(retroService))).get(
                 JobSearchViewModel::class.java

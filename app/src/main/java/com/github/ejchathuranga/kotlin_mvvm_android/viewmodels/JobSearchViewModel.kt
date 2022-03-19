@@ -1,14 +1,15 @@
 package com.github.ejchathuranga.kotlin_mvvm_android.viewmodels
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.ejchathuranga.kotlin_mvvm_android.models.SearchResult
 import com.github.ejchathuranga.kotlin_mvvm_android.network.JobRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class JobSearchViewModel constructor(private val repository: JobRepository) : ViewModel() {
+@HiltViewModel
+class JobSearchViewModel @Inject constructor(private val repository: JobRepository) : ViewModel() {
     private val TAG = "JobSearchViewModel"
     private var searchResultLiveData: MutableLiveData<SearchResult> = MutableLiveData()
     private var errorMsg: MutableLiveData<String> = MutableLiveData();
@@ -29,29 +30,17 @@ class JobSearchViewModel constructor(private val repository: JobRepository) : Vi
     }
 
     fun searchJobs() {
-
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repository.searchJobs()
-            withContext(Dispatchers.Main) {
-                if (response != null) {
-                    val result: SearchResult? = response.body()
-                    if (result?.aggregations!!.count > 0) {
-                        searchResultLiveData.postValue(response.body())
-                    } else {
-                        errorMsg.postValue("No Data for selected date")
-                    }
-                } else {
-                    errorMsg.postValue("Server Error")
-                }
-            }
+            repository.searchJobs(searchResultLiveData, errorMsg)
         }
-    }
-
-
-    fun onSignupClick(){
     }
 
     private fun onError(message: String) {
         this.errorMsg.postValue(message)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
     }
 }

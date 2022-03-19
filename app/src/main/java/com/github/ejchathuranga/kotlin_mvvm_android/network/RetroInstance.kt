@@ -9,7 +9,7 @@ class RetroInstance {
 
         private var retroService: RetroService? = null
 
-        fun getRetroInstance(): RetroService? {
+        fun getRetroInstance(): RetroService {
 
             if (retroService == null) {
                 val retro = Retrofit.Builder()

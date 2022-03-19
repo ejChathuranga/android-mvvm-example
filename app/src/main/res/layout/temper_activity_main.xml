@@ -47,7 +47,6 @@
                 android:background="@drawable/btn_signup"
                 android:textStyle="bold"
                 android:text="Signup"
-                android:onClick="@{()-> viewModel.onSignupClick()}"
                 android:textAllCaps="false"/>
 
             <androidx.appcompat.widget.AppCompatButton
