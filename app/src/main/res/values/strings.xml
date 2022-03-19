@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">kotlin-mvvm-android</string>
+    <string name="middel_aligned_dot">·</string>
 </resources>
