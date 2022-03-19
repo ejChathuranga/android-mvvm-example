@@ -1,6 +1,6 @@
 # Android Kotlin MVVM 
 
-This assessment aims to gauge your development skills with the focus being on Android using Kotlin. We will be paying attention to your approach to implementing the base architecture of services and MVVM, the structure of your code, and adherence to best practices and design principles.
+This sample app aims to gauge development skills with the focus being on Android using Kotlin. In heree will be paying attention to implementing the base architecture of services and MVVM, the structure of code, and adherence to best practices and design principles.
 
 ## Goals
 
