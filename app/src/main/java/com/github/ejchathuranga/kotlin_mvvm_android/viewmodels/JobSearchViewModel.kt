@@ -1,5 +1,7 @@
 package com.github.ejchathuranga.kotlin_mvvm_android.viewmodels
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.ejchathuranga.kotlin_mvvm_android.models.SearchResult
@@ -43,6 +45,10 @@ class JobSearchViewModel constructor(private val repository: JobRepository) : Vi
                 }
             }
         }
+    }
+
+
+    fun onSignupClick(){
     }
 
     private fun onError(message: String) {
