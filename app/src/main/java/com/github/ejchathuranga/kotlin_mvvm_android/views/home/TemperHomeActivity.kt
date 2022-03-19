@@ -16,7 +16,7 @@ import com.github.ejchathuranga.kotlin_mvvm_android.viewmodels.JobsearchViewMode
 class TemperHomeActivity : AppCompatActivity() {
     private val TAG = "TemperHomeActivity"
 
-    lateinit var binding : TemperActivityMainBinding
+    lateinit var binding: TemperActivityMainBinding
     lateinit var viewModel: JobSearchViewModel
     lateinit var adapter: JobsAdapter
 
@@ -39,15 +39,26 @@ class TemperHomeActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val retroService: RetroService? = RetroInstance.getRetroInstance()
-        viewModel = ViewModelProvider(this, JobsearchViewModelFactory(JobRepository(retroService))).get(JobSearchViewModel::class.java);
+        val retroService: RetroService = RetroInstance.getRetroInstance()!!
+        viewModel =
+            ViewModelProvider(this, JobsearchViewModelFactory(JobRepository(retroService))).get(
+                JobSearchViewModel::class.java
+            );
 
         viewModel.getSearchResultLiveData().observe(this, Observer {
-            if (it!=null){
+            if (it != null) {
                 adapter.setDataList(it.data)
-            }else{
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error on search result", Toast.LENGTH_SHORT).show()
             }
         })
+
+        viewModel.getErrorMsg().observe(this) {
+            if (it != null) {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

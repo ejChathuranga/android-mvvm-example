@@ -19,7 +19,7 @@ class RetroInstance {
 
                 retroService = retro.create(RetroService::class.java)
             }
-            return retroService;
+            return retroService !!;
         }
     }
 }
